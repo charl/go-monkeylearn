@@ -66,10 +66,10 @@ func (c *Client) Classify(category string, texts []string) ([]byte, error) {
 	req.Header.Add("Authorization", token)
 
 	res, err := c.client.Do(req)
-	defer res.Body.Close()
 	if err != nil {
 		return nil, fmt.Errorf("go-monkeylearn: unable to send classification request: %s", err)
 	}
+	defer res.Body.Close()
 	mlData, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, fmt.Errorf("go-monkeylearn: unable to read response body: %s", err)
